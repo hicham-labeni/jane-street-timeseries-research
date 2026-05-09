@@ -35,6 +35,10 @@ Dataset source:
 
 Jane Street Real-Time Market Data Forecasting Competition (Kaggle)
 
+https://www.kaggle.com/competitions/jane-street-real-time-market-data-forecasting
+
+The project initially started from the forecasting competition objective and was progressively extended into a research-oriented framework for evaluating cross-sectional ranking structure and signal robustness.
+
 Dataset characteristics:
 
 * ~25 million observations
@@ -46,8 +50,6 @@ Dataset characteristics:
 The dataset itself is NOT included in this repository because of size and licensing constraints.
 
 Because the dataset is fully anonymized, the project focuses on statistical signal structure rather than direct economic interpretation of the predictive features.
-
----
 
 # Research Pipeline
 
