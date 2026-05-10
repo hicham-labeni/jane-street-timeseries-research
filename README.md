@@ -1,31 +1,27 @@
-# Jane Street Cross-Sectional Alpha Signal Research
+# Jane Street Financial Forecasting Research
 
-This project started as a predictive modeling task based on the Jane Street real-time forecasting competition and was progressively extended into a research-oriented cross-sectional signal evaluation framework.
+This project investigates short-horizon financial prediction using machine learning and strict forward-looking validation on the Jane Street Real-Time Market Data Kaggle dataset.
 
-The objective was initially to predict `responder_6` using machine-learning models under strict forward-looking validation, then evaluate whether the resulting predictions formed statistically meaningful cross-sectional ranking signals.
-
-The workflow includes predictive modeling, robustness diagnostics, Rank IC analysis, signal decay evaluation, turnover analysis, and simplified market-neutral ranking diagnostics on anonymized financial market data.
+The objective is to predict `responder_6` from anonymized market features while emphasizing robust validation design, leakage-aware modeling, and out-of-sample evaluation stability.
 
 ---
 
 # Project Overview
 
-The project initially started as a predictive modeling task aligned with the Jane Street forecasting competition objective: predicting `responder_6` from anonymized market features.
-
-It was progressively extended into a research-oriented signal evaluation framework designed to analyze whether model predictions exhibit stable cross-sectional ranking structure across time.
+This project was developed as a research-oriented financial machine learning workflow focused on predictive modeling under non-stationary time-series conditions.
 
 The workflow focuses on:
 
 * strict forward-looking validation
 * leakage-aware feature engineering
-* weighted financial metrics
+* weighted financial evaluation metrics
 * LightGBM baseline modeling
 * robustness diagnostics
-* cross-sectional ranking evaluation
-* signal persistence analysis
-* simplified market-neutral ranking diagnostics
+* temporal stability analysis
+* lag-feature experimentation
+* out-of-sample validation analysis
 
-The project emphasizes methodological signal evaluation techniques commonly used in quantitative research, including Rank IC analysis, signal decay evaluation, turnover diagnostics, and portfolio-level ranking analysis.
+The main goal of the project is not to maximize leaderboard performance, but to study how methodological decisions affect predictive robustness in noisy financial datasets.
 
 ---
 
@@ -37,8 +33,6 @@ Jane Street Real-Time Market Data Forecasting Competition (Kaggle)
 
 https://www.kaggle.com/competitions/jane-street-real-time-market-data-forecasting
 
-The project initially started from the forecasting competition objective and was progressively extended into a research-oriented framework for evaluating cross-sectional ranking structure and signal robustness.
-
 Dataset characteristics:
 
 * ~25 million observations
@@ -49,30 +43,32 @@ Dataset characteristics:
 
 The dataset itself is NOT included in this repository because of size and licensing constraints.
 
-Because the dataset is fully anonymized, the project focuses on statistical signal structure rather than direct economic interpretation of the predictive features.
+Because the dataset is fully anonymized, the project focuses on statistical predictive structure rather than direct economic interpretation of the features.
+
+---
 
 # Research Pipeline
 
-The research workflow includes:
-
 ## 1. Data Diagnostics
 
-* missing value analysis
-* target distribution analysis
-* temporal stability inspection
+Initial exploratory analysis included:
+
+* missing-value analysis
+* target distribution inspection
 * feature sparsity analysis
+* temporal coverage verification
 
 ---
 
 ## 2. Strict Time-Series Validation
 
-Forward-looking train/validation split:
+Validation was performed using a strictly forward-looking split:
 
 * training on earlier dates
 * validation on future dates
 * no random shuffling
 
-This avoids temporal leakage and ensures realistic out-of-sample evaluation.
+This avoids temporal leakage and produces more realistic out-of-sample evaluation.
 
 ---
 
@@ -82,19 +78,19 @@ Main modeling choices:
 
 * LightGBM regression
 * weighted training
-* weighted zero-mean R² metric
-* missing values handled natively
-* financial feature clipping
-* feature sparsity filtering
+* competition-aligned weighted zero-mean R²
+* native missing-value handling
+* feature clipping for heavy-tailed distributions
+* sparse-feature filtering
 
 Validation performance:
 
-| Model             | Weighted R² |
-| ----------------- | ----------- |
-| Initial baseline  | ~0.0045     |
-| Improved baseline | ~0.0086     |
+| Model | Weighted R² |
+|---|---|
+| Initial baseline | ~0.0045 |
+| Improved baseline | ~0.0086 |
 
-The improvement mainly resulted from methodological corrections involving temporal sampling design, leakage control, feature filtering, and validation robustness rather than model complexity alone.
+The improvement mainly resulted from methodological corrections involving temporal sampling, validation design, leakage control, and feature preprocessing rather than increasing model complexity alone.
 
 ---
 
@@ -103,94 +99,69 @@ The improvement mainly resulted from methodological corrections involving tempor
 Several robustness checks were implemented:
 
 * leakage checks
-* harder out-of-sample validation
-* shuffled-target test
+* harder out-of-sample validation splits
+* shuffled-target testing
 * validation stability across dates
 * overfitting diagnostics
 
-Main findings:
+Main observations:
 
 * no evidence of major leakage
-* statistically positive out-of-sample ranking structure across validation periods
-* expected overfitting behavior typical of low signal-to-noise financial ML problems
+* positive out-of-sample predictive signal
+* expected overfitting structure typical of financial ML problems
+* reduced performance under harder validation regimes
 
 ---
 
 ## 5. Lag Feature Experiment
 
-Additional symbol-level lagged features were tested to evaluate temporal persistence effects.
+Additional lagged features were tested to evaluate short-term temporal persistence effects.
 
-Lag features were created using:
+Lag features were constructed using:
 
 * grouped symbol history
 * strictly past observations only
 * multiple lag horizons
 
-This experiment evaluated whether short-term feature memory improves predictive structure.
-
----
-
-## 6. Cross-Sectional Signal Construction
-
-Model predictions were transformed into ranking-based cross-sectional signals.
-
-The workflow includes:
-
-* cross-sectional ranking
-* Rank IC evaluation
-* rolling Rank IC analysis
-* signal decay analysis
-* simplified long-short ranking diagnostics
-* turnover estimation
-* transaction-cost-adjusted diagnostics
-
-The objective of this stage is not to claim deployable alpha generation, but to evaluate whether predictive model outputs form statistically stable ranking structure under forward-looking validation.
+This experiment evaluated whether short-term memory effects improved predictive performance.
 
 ---
 
 # Key Results
 
-## Predictive Signal
+Main observations obtained during validation:
 
-* Positive weighted R² out-of-sample
-* Positive Rank IC
-* Moderately stable cross-sectional ranking structure across validation periods
+| Metric | Value |
+|---|---|
+| Initial weighted R² | ~0.0045 |
+| Improved weighted R² | ~0.0086 |
+| Harder OOS weighted R² | ~0.0031 |
+| Positive validation dates | ~85.7% |
 
-## Signal Diagnostics
-
-Approximate validation results:
-
-| Metric                   | Value  |
-| ------------------------ | ------ |
-| Mean Rank IC             | ~0.040 |
-| Positive IC observations | ~59%   |
-| Average turnover         | ~0.61  |
-
-A simplified market-neutral long-short framework was used as a ranking-based diagnostic tool rather than a realistic deployable trading strategy.
-
-Transaction costs were incorporated using a simplified fixed basis-point model in order to evaluate whether ranking separation remained relatively stable after introducing basic trading frictions.
+The experiments highlighted the importance of validation methodology, temporal sampling design, and leakage control in financial prediction tasks.
 
 ---
+
 # Research Observations
 
-Several experiments highlighted the difficulty of extracting stable predictive structure from noisy and non-stationary financial data.
+Several experiments illustrated the difficulty of extracting stable predictive structure from noisy and non-stationary financial datasets.
 
 For example:
 
-* stronger regularization reduced overfitting but slightly lowered predictive performance
-* symbol-level lag features did not materially improve out-of-sample ranking quality
+* stronger regularization slightly reduced predictive performance
 * validation performance varied across time regimes
 * harder out-of-sample splits significantly reduced weighted R²
+* methodological choices impacted performance more than model complexity alone
 
-These observations reinforced the importance of robust validation design and signal stability analysis rather than relying purely on model complexity.
+These observations reinforced the importance of robust validation and careful research design in financial machine learning workflows.
+
+---
 
 # Research Limitations
 
 This project uses a fully anonymized dataset, which prevents direct economic interpretation of the predictive structure.
 
-The long-short framework is intentionally simplified and is used for ranking-based signal diagnostics rather than realistic execution modeling.
-
-Transaction costs, liquidity effects, and market impact are modeled only through simplified assumptions and should not be interpreted as production-level trading estimates.
+As a result, the project focuses on predictive modeling methodology and statistical validation rather than realistic trading strategy construction or execution modeling.
 
 ---
 
@@ -209,7 +180,7 @@ Transaction costs, liquidity effects, and market impact are modeled only through
 # Repository Structure
 
 ```text
-jane-street-cross-sectional-signal-research/
+jane-street-financial-forecasting-research/
 │
 ├── notebooks/
 ├── models/
