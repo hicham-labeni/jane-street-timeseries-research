@@ -1,4 +1,4 @@
-# Jane Street Financial Forecasting Research
+# Jane Street Real-Time Market Data Forecasting (Kaggle Competition Project) 
 
 This project investigates short-horizon financial prediction using machine learning and strict forward-looking validation on the Jane Street Real-Time Market Data Kaggle dataset.
 
