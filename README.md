@@ -134,6 +134,22 @@ This allowed the model to observe multiple temporal regimes while keeping memory
 
 ---
 
+# Target Diagnostics
+
+The target exhibits heavy-tailed behavior and unstable cumulative dynamics over time, which motivates the use of strict chronological validation instead of random train/test splits.
+
+## Distribution of responder_6
+
+<p align="center">
+  <img src="figures/responder6_distribution.png" width="700">
+</p>
+
+## Cumulative weighted responder_6
+
+<p align="center">
+  <img src="figures/cumulative_responder6.png" width="800">
+</p>
+
 # Validation Framework
 
 Validation was performed using a strictly chronological split:
