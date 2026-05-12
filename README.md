@@ -141,13 +141,13 @@ The target exhibits heavy-tailed behavior and unstable cumulative dynamics over 
 ## Distribution of responder_6
 
 <p align="center">
-  <img src="figures/responder6_distribution.png" width="700">
+  <img src="figures/responder6_distribution.png" width="500">
 </p>
 
 ## Cumulative weighted responder_6
 
 <p align="center">
-  <img src="figures/cumulative_responder6.png" width="800">
+  <img src="figures/cumulative_responder6.png" width="600">
 </p>
 
 # Validation Framework
